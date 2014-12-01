@@ -45,9 +45,10 @@ class Module implements
         $sm  = $app->getServiceManager();
 
         $detector = $sm->get('MQLocale\Locale\Detector');
-        $result   = $detector->detect($app->getRequest(), $app->getResponse());
+        $strategyManager = $sm->get('MQLocale\Strategy\StrategyManager');
+        $result   = $detector->detect($app->getRequest(), $strategyManager);
 
-		if(!null === $result)
-	        Locale::setDefault($result);
+		if(null !== $result)
+	        Locale::setDefault(Locale::canonicalize($result));
     }
 }

@@ -14,137 +14,55 @@ namespace MQLocale\Locale;
 use Zend\Stdlib\RequestInterface;
 use Zend\Stdlib\ResponseInterface;
 
+use MQLocale\Strategy\StrategyManager;
 
 class Detector
 {
-	const LOCALE_KEY = ':locale';
-	
     /**
-     * Default locale
+     * MQLocale\Locale\DetectorConfig object
      *
-     * @var string
+     * @var MQLocale\Locale\DetectorConfig
      */
-    protected $default;
-
-    /**
-     * List of supported locales
-     *
-     * @var array
-     */
-    protected $supported;
+    protected $config;
     
-    /**
-     * Lis of supported domains
-     *
-     * @var array
-     */
-    protected $domains;
-    
-    /**
-     * List of supported aliases
-     *
-     * @var array
-     */
-    protected $aliases;
-
-
-    public function getDefault()
+    public function getConfig()
     {
-        return $this->default;
+        return $this->config;
     }
-
-    public function setDefault($default)
+    
+    public function setConfig(\MQLocale\Locale\DetectorConfig $config)
     {
-        $this->default = $default;
+        $this->config = $config;
         return $this;
     }
     
-    public function getSupported()
-    {
-        return $this->supported;
-    }
-    
-    public function setSupported(array $supported)
-    {
-        $this->supported = $supported;
-        return $this;
-    }
-    
-    public function hasSupported()
-    {
-        return (is_array($this->supported) && count($this->supported));
-    }
-    
-    public function getDomains()
-    {
-        return $this->domains;
-    }
-    
-    public function setDomains(array $domains)
-    {
-        $this->domains = $domains;
-        return $this;
-    }
-    
-    public function getAliases()
-    {
-        return $this->aliases;
-    }
-    
-    public function setAliases(array $aliases)
-    {
-        $this->aliases = $aliases;
-        return $this;
-    }
-    
-    protected function isHttpRequest(RequestInterface $request)
-    {
-        return $request instanceof HttpRequest;
+    public function __construct(\MQLocale\Locale\DetectorConfig $config) {
+	    
+	    $this->setConfig($config);
     }
 
-    public function detect(RequestInterface $request, ResponseInterface $response = null)
+    public function detect(RequestInterface $request, StrategyManager $strategyManager)
     {
-        if (!$this->hasSupported()) {
+	    $config = $this->getConfig();
+	    
+        if (!$config->hasSupported()) {
             throw new Exception\InvalidArgumentException(
                 'No supported languages are configured'
             );
         }
-        
-        $domains = $this->getDomains();
-        $host    = $request->getUri()->getHost();
-        $matched = null;
 
-        if (null === $domains || empty($domains)) {
+        if (!$config->hasStrategy()) {
             throw new Exception\InvalidArgumentException(
-                'No domains where configured'
+                'No strategy configured'
             );
         }
-
-        foreach($domains as $domain) {
-	       
-	        if (strpos($domain, self::LOCALE_KEY) === false) {
-	            throw new Exception\InvalidArgumentException(sprintf(
-	                'The domain %s must contain a locale key part "%s"', $domain, self::LOCALE_KEY
-	            ));
-	        }
-	                
-	        $pattern = str_replace(self::LOCALE_KEY, '([a-zA-Z-_.]+)', $domain);
-	        $pattern = sprintf('@%s@', $pattern);
-	        $result  = preg_match($pattern, $host, $matches);
-	     	        
-	        if ($result) 
-	            $matched = $matches;         
-       }
-
-        $locale = $matched[1];
-        $aliases = $this->getAliases();
         
-        if (null !== $aliases && array_key_exists($locale, $aliases)) {
-            $locale = $aliases[$locale];
-        }
-        
-        if (!in_array($locale, $this->getSupported())) {
-            return $this->getDefault();
+        $strategy = $config->getStrategy();
+        $detectorStrategy = $strategyManager->get($strategy);
+        $locale = $detectorStrategy->detect($config, $request);
+                
+        if (!in_array($locale, $config->getSupported())) {
+            return $config->getDefault();
         }
 		
         return $locale;

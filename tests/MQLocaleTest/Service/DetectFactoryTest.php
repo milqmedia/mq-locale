@@ -11,16 +11,32 @@
 namespace MQLocaleTest\Locale;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use MQLocale\Locale\DetectorConfig;
 
-use Zend\EventManager\EventManager;
 use Zend\ServiceManager\ServiceManager;
 
 class DetectorFactoryTest extends TestCase
 {
+	protected $config;
+	
+	public function setUp() {
+		
+		$config = new DetectorConfig();
+		
+		$config->setDomains(array('test.:locale'));
+		$config->setSupported(array('en_US'));
+		$config->setAliases(array('nl' => 'nl_NL'));
+		$config->setDefault('nl_NL');
+		
+		$this->config = $config;
+	}
+	
     public function testFactoryInstantiatesDetector()
     {
         $sl = $this->getServiceLocator();
         $detector = $sl->get('MQLocale\Locale\Detector');
+        
+        $detector->setConfig($this->config);
 
         $this->assertInstanceOf('MQLocale\Locale\Detector', $detector);
     }
@@ -32,7 +48,7 @@ class DetectorFactoryTest extends TestCase
         ));
         $detector = $sl->get('MQLocale\Locale\Detector');
 
-        $this->assertEquals('Foo', $detector->getDefault());
+        $this->assertEquals('Foo', $detector->getConfig()->getDefault());
     }
 
     public function testSupportedLocalesAreSet()
@@ -42,7 +58,7 @@ class DetectorFactoryTest extends TestCase
         ));
         $detector = $sl->get('MQLocale\Locale\Detector');
 
-        $this->assertEquals(array('Foo', 'Bar'), $detector->getSupported());
+        $this->assertEquals(array('Foo', 'Bar'), $detector->getConfig()->getSupported());
     }
 
 	public function testDomainsAreSet()
@@ -50,9 +66,10 @@ class DetectorFactoryTest extends TestCase
         $sl = $this->getServiceLocator(array(
             'domains' => array('Foo', 'Bar')
         ));
+        
         $detector = $sl->get('MQLocale\Locale\Detector');
 
-        $this->assertEquals(array('Foo', 'Bar'), $detector->getDomains());
+        $this->assertEquals(array('Foo', 'Bar'), $detector->getConfig()->getDomains());
     }
     
     public function testAliasesAreSet()
@@ -62,7 +79,17 @@ class DetectorFactoryTest extends TestCase
         ));
         $detector = $sl->get('MQLocale\Locale\Detector');
 
-        $this->assertEquals(array('Foo', 'Bar'), $detector->getAliases());
+        $this->assertEquals(array('Foo', 'Bar'), $detector->getConfig()->getAliases());
+    }
+    
+    public function testStrategyIsSet()
+    {
+        $sl = $this->getServiceLocator(array(
+            'strategy' => 'Foo'
+        ));
+        $detector = $sl->get('MQLocale\Locale\Detector');
+
+        $this->assertEquals('Foo', $detector->getConfig()->getStrategy());
     }
     
     public function getServiceLocator(array $config = array())

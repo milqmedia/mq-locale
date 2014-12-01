@@ -25,6 +25,11 @@ $settings = array(
      * Aliases
      */
     //'aliases' => array(),
+    
+    /**
+     * Strategy
+     */
+    //'strategy' => 'host',
 );
 
 /**

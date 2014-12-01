@@ -12,8 +12,10 @@
 return array(
     'mq_locale' => array(
     ),
-
     'service_manager' => array(
+	    'invokables' => array(
+            'MQLocale\Strategy\StrategyManager' => 'MQLocale\Strategy\StrategyManager',
+        ),
         'factories'  => array(
             'MQLocale\Locale\Detector' => 'MQLocale\Service\DetectorFactory',
         ),
