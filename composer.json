@@ -1,5 +1,5 @@
 {
-    "name": "slm/locale",
+    "name": "milqmedia/mq-locale",
     "description": "Automatic detection of locales for Zend Framework 2",
     "type": "library",
     "license": "BSD-3-Clause",
@@ -14,6 +14,11 @@
             "name": "Jurian Sluiman",
             "email": "jurian@juriansluiman.nl",
             "homepage": "http://juriansluiman.nl"
+        },
+        {
+            "name": "Johan Kuijt",
+            "email": "johan@milq.nl",
+            "homepage": "http://milq.nl"
         }
     ],
     "require": {
@@ -34,8 +39,8 @@
     },
     "autoload": {
         "psr-0": {
-            "SlmLocale": "src/",
-            "SlmLocaleTest": "tests/"
+            "MQLocale": "src/",
+            "MQLocaleTest": "tests/"
         },
         "classmap": [
             "./Module.php"
