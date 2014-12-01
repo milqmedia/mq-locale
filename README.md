@@ -1,18 +1,18 @@
-SlmLocale
+MQLocale (Fork of MQLocale)
 ===
-[![Build Status](https://travis-ci.org/juriansluiman/SlmLocale.png)](https://travis-ci.org/juriansluiman/SlmLocale)
-[![Latest Stable Version](https://poser.pugx.org/slm/locale/v/stable.png)](https://packagist.org/packages/slm/locale)
+[![Build Status](https://travis-ci.org/milqmedia/mq-locale.svg)](https://travis-ci.org/milqmedia/mq-locale)
 
 Created by Jurian Sluiman
+Updated by Milq Media
 
 Introduction
 ------------
-SlmLocale is a Zend Framework 2 module to automatically detect a locale for your
+MQLocale is a Zend Framework 2 module to automatically detect a locale for your
 application. It uses a variety of pluggable strategies to search for a valid
-locale. SlmLocale features a default locale, a set of supported locales and
+locale. MQLocale features a default locale, a set of supported locales and
 locale aliases.
 
-SlmLocale supports out of the box several strategies to search for a locale.
+MQLocale supports out of the box several strategies to search for a locale.
 Through interfaces, other strategies could be created. The set of default
 stragies is:
 
@@ -31,8 +31,8 @@ Furthermore, it provides a set of additional localisation features:
 
 Installation
 ---
-Add "slm/locale" to your composer.json file and update your dependencies. Enable
-SlmLocale in your `application.config.php`.
+Add "milqmedia/mq-locale" to your composer.json file and update your dependencies. Enable
+MQLocale in your `application.config.php`.
 
 If you do not have a composer.json file in the root of your project, copy the
 contents below and put that into a file called `composer.json` and save it in
@@ -41,7 +41,7 @@ the root of your project:
 ```
 {
     "require": {
-        "slm/locale": ">=0.1.0,<1.2.0-dev"
+        "milqmedia/mq-locale": "dev-master"
     }
 }
 ```
@@ -53,16 +53,16 @@ curl -s http://getcomposer.org/installer | php
 php composer.phar install
 ```
 
-Now you should have a `vendor` directory, including a `slm/locale`. In your
+Now you should have a `vendor` directory, including a `milqmedia/mq-locale`. In your
 bootstrap code, make sure you include the `vendor/autoload.php` file to properly
-load the SlmLocale module.
+load the MQLocale module.
 
 Usage
 ---
 Set your default locale in the configuration:
 
 ```
-'slm_locale' => array(
+'mq_locale' => array(
     'default' => 'nl-NL',
 ),
 ```
@@ -70,24 +70,24 @@ Set your default locale in the configuration:
 Set all your supported locales in the configuration:
 
 ```
-'slm_locale' => array(
+'mq_locale' => array(
     'supported' => array('en-US', 'en-GB'),
 ),
 ```
 
 And enable some strategies. The naming is made via the following list:
 
- * **cookie**: `SlmLocale\Strategy\CookieStrategy`
- * **host**: `SlmLocale\Strategy\HostStrategy`
- * **acceptlanguage**: `SlmLocale\Strategy\HttpAcceptLanguageStrategy`
- * **query**: `SlmLocale\Strategy\QueryStrategy`
- * **uripath**: `SlmLocale\Strategy\UriPathStrategy`
+ * **cookie**: `MQLocale\Strategy\CookieStrategy`
+ * **host**: `MQLocale\Strategy\HostStrategy`
+ * **acceptlanguage**: `MQLocale\Strategy\HttpAcceptLanguageStrategy`
+ * **query**: `MQLocale\Strategy\QueryStrategy`
+ * **uripath**: `MQLocale\Strategy\UriPathStrategy`
 
 You can enable one or more of them in the `strategies` list. Mind the priority
 is important! You usually want the `acceptlanguage` as last for a fallback:
 
 ```
-'slm_locale' => array(
+'mq_locale' => array(
     'strategies' => array('uripath', 'acceptlanguage'),
 ),
 ```
