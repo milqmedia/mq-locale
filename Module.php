@@ -38,7 +38,7 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale;
+namespace MQLocale;
 
 use Locale;
 
@@ -73,7 +73,7 @@ class Module implements
         $app = $e->getApplication();
         $sm  = $app->getServiceManager();
 
-        $detector = $sm->get('SlmLocale\Locale\Detector');
+        $detector = $sm->get('MQLocale\Locale\Detector');
         $result   = $detector->detect($app->getRequest(), $app->getResponse());
 
         Locale::setDefault($result);
