@@ -1,0 +1,35 @@
+<?php
+/**
+ * MQLocale Configuration
+ *
+ * If you have a ./config/autoload/ directory set up for your project, you can
+ * drop this config file in it and change the values as you wish.
+ */
+$settings = array(
+    /**
+     * Default locale
+     */
+    //'default' => 'nl-NL',
+
+    /**
+     * Supported locales
+     */
+    //'supported' => array('en-US', 'en-GB'),
+
+    /**
+     * Supported domains
+     */
+    //'domains' => array(),
+
+    /**
+     * Aliases
+     */
+    //'aliases' => array(),
+);
+
+/**
+ * You do not need to edit below this line
+ */
+return array(
+    'mq_locale' => $settings
+);
