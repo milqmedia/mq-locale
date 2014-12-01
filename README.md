@@ -1,4 +1,4 @@
-MQLocale (Fork of MQLocale)
+MQLocale (Fork of SlmLocale)
 ===
 [![Build Status](https://travis-ci.org/milqmedia/mq-locale.svg)](https://travis-ci.org/milqmedia/mq-locale)
 
