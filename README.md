@@ -2,8 +2,8 @@ MQLocale (Fork of MQLocale)
 ===
 [![Build Status](https://travis-ci.org/milqmedia/mq-locale.svg)](https://travis-ci.org/milqmedia/mq-locale)
 
-Created by Jurian Sluiman
- - Updated by Milq Media
+- Created by Jurian Sluiman
+- Updated by Milq Media
 
 Introduction
 ------------
