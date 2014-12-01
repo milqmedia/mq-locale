@@ -38,10 +38,10 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy\Exception;
+namespace MQLocale\Strategy\Exception;
 
 use InvalidArgumentException as StdInvalidArgumentException;
-use SlmLocale\Exception\ExceptionInterface;
+use MQLocale\Exception\ExceptionInterface;
 
 class InvalidArgumentException
     extends StdInvalidArgumentException

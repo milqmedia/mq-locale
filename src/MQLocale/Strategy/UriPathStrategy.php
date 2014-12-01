@@ -38,10 +38,10 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Strategy;
 
 use Locale;
-use SlmLocale\LocaleEvent;
+use MQLocale\LocaleEvent;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\Uri\Uri;

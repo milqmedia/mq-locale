@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2012-2013 Jurian Sluiman.
+ * Copyright (c) 2013 Jurian Sluiman.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,30 +33,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @author      Jurian Sluiman <jurian@juriansluiman.nl>
- * @copyright   2012-2013 Jurian Sluiman.
+ * @copyright   2012-2013 Jurian Sluiman http://juriansluiman.nl.
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Service;
+namespace MQLocale\Strategy\Exception;
 
-use SlmLocale\View\Helper\LocaleMenu;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use InvalidArgumentException;
+use MQLocale\Exception\ExceptionInterface;
 
-class LocaleMenuViewHelperFactory implements FactoryInterface
+class InvalidStrategyException
+    extends InvalidArgumentException
+    implements ExceptionInterface
 {
-    /**
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return LocaleMenu
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $detector = $serviceLocator->getServiceLocator()->get('SlmLocale\Locale\Detector');
 
-        $helper = new LocaleMenu;
-        $helper->setDetector($detector);
-
-        return $helper;
-    }
 }

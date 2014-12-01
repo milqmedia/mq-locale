@@ -38,39 +38,28 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Service;
 
-use Locale;
-use SlmLocale\LocaleEvent;
+use MQLocale\View\Helper\LocaleUrl;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class HttpAcceptLanguageStrategy extends AbstractStrategy
+class LocaleUrlViewHelperFactory implements FactoryInterface
 {
-    public function detect(LocaleEvent $event)
+    /**
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @return LocaleUrl
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $request = $event->getRequest();
-        if (!$this->isHttpRequest($request)) {
-            return;
-        }
+        $sl = $serviceLocator->getServiceLocator();
 
-        if ($lookup = $event->hasSupported()) {
-            $supported = $event->getSupported();
-        }
+        $detector = $sl->get('MQLocale\Locale\Detector');
+        $request  = $sl->get('Request');
+        $app      = $sl->get('Application');
 
-        $headers = $request->getHeaders();
-        if ($headers->has('Accept-Language')) {
-            $locales = $headers->get('Accept-Language')->getPrioritized();
-
-            foreach ($locales as $locale) {
-                $locale = $locale->getLanguage();
-
-                if (!$lookup) {
-                    return $locale;
-                }
-
-                if (Locale::lookup($supported, $locale)) {
-                    return $locale;
-                }
-            }
-        }
+        $match  = $app->getMvcEvent()->getRouteMatch();
+        $helper = new LocaleUrl($detector, $request, $match);
+        return $helper;
     }
 }

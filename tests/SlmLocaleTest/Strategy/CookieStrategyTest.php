@@ -37,12 +37,12 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
-namespace SlmLocaleTest\Locale;
+namespace MQLocaleTest\Locale;
 
 use PHPUnit_Framework_TestCase as TestCase;
 
-use SlmLocale\Strategy\CookieStrategy;
-use SlmLocale\LocaleEvent;
+use MQLocale\Strategy\CookieStrategy;
+use MQLocale\LocaleEvent;
 
 use Zend\Http\Header\Cookie;
 use Zend\Http\Header\SetCookie;
@@ -178,7 +178,7 @@ class CookieStrategyTest extends TestCase
     }
 
     /**
-     * @expectedException \SlmLocale\Strategy\Exception\InvalidArgumentException
+     * @expectedException \MQLocale\Strategy\Exception\InvalidArgumentException
      */
     public function testInvalidCookieNameFails()
     {

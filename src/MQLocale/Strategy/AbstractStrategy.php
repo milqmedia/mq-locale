@@ -38,98 +38,63 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale;
+namespace MQLocale\Strategy;
 
-use Zend\EventManager\Event;
+use MQLocale\LocaleEvent;
+use Zend\EventManager\EventManagerInterface;
+use Zend\Http\Request as HttpRequest;
 use Zend\Stdlib\RequestInterface;
-use Zend\Stdlib\ResponseInterface;
-use Zend\Uri\Uri;
 
-class LocaleEvent extends Event
+abstract class AbstractStrategy implements StrategyInterface
 {
-    const EVENT_DETECT   = 'detect';
-    const EVENT_FOUND    = 'found';
-    const EVENT_ASSEMBLE = 'assemble';
+    /**
+     * Listeners we've registered
+     *
+     * @var array
+     */
+    protected $listeners = array();
 
-    protected $request;
-    protected $response;
-    protected $supported;
-    protected $locale;
-    protected $uri;
-
-    public function getRequest()
+    /**
+     * Attach "detect", "found" and "assemble" listeners
+     *
+     * @param EventManagerInterface $events
+     * @param int                   $priority
+     */
+    public function attach(EventManagerInterface $events, $priority = 1)
     {
-        return $this->request;
-    }
-
-    public function setRequest(RequestInterface $request)
-    {
-        $this->setParam('request', $request);
-        $this->request = $request;
-        return $this;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function setResponse(ResponseInterface $response)
-    {
-        $this->setParam('response', $response);
-        $this->response = $response;
-        return $this;
-    }
-
-    public function getSupported()
-    {
-        return $this->supported;
-    }
-
-    public function setSupported(array $supported)
-    {
-        $this->setParam('supported', $supported);
-        $this->supported = $supported;
-        return $this;
-    }
-
-    public function hasSupported()
-    {
-        return is_array($this->supported) && count($this->supported);
-    }
-
-    public function getLocale()
-    {
-        return $this->locale;
-    }
-
-    public function setLocale($locale)
-    {
-        $this->setParam('locale', $locale);
-        $this->locale = $locale;
-        return $this;
+        $this->listeners[] = $events->attach(LocaleEvent::EVENT_DETECT,    array($this, 'detect'), $priority);
+        $this->listeners[] = $events->attach(LocaleEvent::EVENT_FOUND,     array($this, 'found'),  $priority);
+        $this->listeners[] = $events->attach(LocaleEvent::EVENT_ASSEMBLE,  array($this, 'assemble'),  $priority);
     }
 
     /**
-     * Get uri for assemble event
+     * Detach all previously attached listeners
      *
-     * @return Uri
+     * @param EventManagerInterface $events
      */
-    public function getUri()
+    public function detach(EventManagerInterface $events)
     {
-        return $this->uri;
+        foreach ($this->listeners as $index => $listener) {
+            if ($events->detach($listener)) {
+                unset($this->listeners[$index]);
+            }
+        }
     }
 
-    /**
-     * Set uri for assemble event
-     *
-     * @param  Uri $uri
-     * @return self
-     */
-    public function setUri(Uri $uri)
+    public function detect(LocaleEvent $event)
     {
-        $this->setParam('uri', $uri);
-        $this->uri = $uri;
-        return $this;
+    }
+
+    public function found(LocaleEvent $event)
+    {
+    }
+
+    public function assemble(LocaleEvent $event)
+    {
+    }
+
+    protected function isHttpRequest(RequestInterface $request)
+    {
+        return $request instanceof HttpRequest;
     }
 }

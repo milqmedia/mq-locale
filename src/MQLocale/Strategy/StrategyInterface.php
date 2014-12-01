@@ -38,63 +38,10 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Strategy;
 
-use SlmLocale\LocaleEvent;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Http\Request as HttpRequest;
-use Zend\Stdlib\RequestInterface;
+use Zend\EventManager\ListenerAggregateInterface;
 
-abstract class AbstractStrategy implements StrategyInterface
+interface StrategyInterface extends ListenerAggregateInterface
 {
-    /**
-     * Listeners we've registered
-     *
-     * @var array
-     */
-    protected $listeners = array();
-
-    /**
-     * Attach "detect", "found" and "assemble" listeners
-     *
-     * @param EventManagerInterface $events
-     * @param int                   $priority
-     */
-    public function attach(EventManagerInterface $events, $priority = 1)
-    {
-        $this->listeners[] = $events->attach(LocaleEvent::EVENT_DETECT,    array($this, 'detect'), $priority);
-        $this->listeners[] = $events->attach(LocaleEvent::EVENT_FOUND,     array($this, 'found'),  $priority);
-        $this->listeners[] = $events->attach(LocaleEvent::EVENT_ASSEMBLE,  array($this, 'assemble'),  $priority);
-    }
-
-    /**
-     * Detach all previously attached listeners
-     *
-     * @param EventManagerInterface $events
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
-
-    public function detect(LocaleEvent $event)
-    {
-    }
-
-    public function found(LocaleEvent $event)
-    {
-    }
-
-    public function assemble(LocaleEvent $event)
-    {
-    }
-
-    protected function isHttpRequest(RequestInterface $request)
-    {
-        return $request instanceof HttpRequest;
-    }
 }

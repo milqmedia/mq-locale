@@ -37,7 +37,7 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
-namespace SlmLocaleTest\Locale;
+namespace MQLocaleTest\Locale;
 
 use PHPUnit_Framework_TestCase as TestCase;
 
@@ -49,15 +49,15 @@ class DetectorFactoryTest extends TestCase
     public function testFactoryInstantiatesDetector()
     {
         $sl = $this->getServiceLocator();
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
 
-        $this->assertInstanceOf('SlmLocale\Locale\Detector', $detector);
+        $this->assertInstanceOf('MQLocale\Locale\Detector', $detector);
     }
 
     public function testDefaultLocaleIsOptional()
     {
         $sl = $this->getServiceLocator();
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
 
         $this->assertNull($detector->getDefault());
     }
@@ -67,7 +67,7 @@ class DetectorFactoryTest extends TestCase
         $sl = $this->getServiceLocator(array(
             'default' => 'Foo'
         ));
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
 
         $this->assertEquals('Foo', $detector->getDefault());
     }
@@ -75,7 +75,7 @@ class DetectorFactoryTest extends TestCase
     public function testSupportedLocalesAreOptional()
     {
         $sl = $this->getServiceLocator();
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
 
         $this->assertNull($detector->getSupported());
     }
@@ -85,7 +85,7 @@ class DetectorFactoryTest extends TestCase
         $sl = $this->getServiceLocator(array(
             'supported' => array('Foo', 'Bar')
         ));
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
 
         $this->assertEquals(array('Foo', 'Bar'), $detector->getSupported());
     }
@@ -98,13 +98,13 @@ class DetectorFactoryTest extends TestCase
 
         $self    = $this;
         $called  = false;
-        $plugins = $sl->get('SlmLocale\Strategy\StrategyPluginManager');
+        $plugins = $sl->get('MQLocale\Strategy\StrategyPluginManager');
         $plugins->setFactory('TestStrategy', function() use ($self, &$called) {
             $called = true;
-            return $self->getMock('SlmLocale\Strategy\StrategyInterface');
+            return $self->getMock('MQLocale\Strategy\StrategyInterface');
         });
 
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
         $this->assertTrue($called);
     }
 
@@ -116,19 +116,19 @@ class DetectorFactoryTest extends TestCase
 
         $self    = $this;
         $called1 = false;
-        $plugins = $sl->get('SlmLocale\Strategy\StrategyPluginManager');
+        $plugins = $sl->get('MQLocale\Strategy\StrategyPluginManager');
         $plugins->setFactory('TestStrategy1', function() use ($self, &$called1) {
             $called1 = true;
-            return $self->getMock('SlmLocale\Strategy\StrategyInterface');
+            return $self->getMock('MQLocale\Strategy\StrategyInterface');
         });
 
         $called2 = false;
         $plugins->setFactory('TestStrategy2', function() use ($self, &$called2) {
             $called2 = true;
-            return $self->getMock('SlmLocale\Strategy\StrategyInterface');
+            return $self->getMock('MQLocale\Strategy\StrategyInterface');
         });
 
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
         $this->assertTrue($called1);
         $this->assertTrue($called2);
     }
@@ -143,13 +143,13 @@ class DetectorFactoryTest extends TestCase
 
         $self    = $this;
         $called  = false;
-        $plugins = $sl->get('SlmLocale\Strategy\StrategyPluginManager');
+        $plugins = $sl->get('MQLocale\Strategy\StrategyPluginManager');
         $plugins->setFactory('TestStrategy', function() use ($self, &$called) {
             $called = true;
-            return $self->getMock('SlmLocale\Strategy\StrategyInterface');
+            return $self->getMock('MQLocale\Strategy\StrategyInterface');
         });
 
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
         $this->assertTrue($called);
     }
 
@@ -162,14 +162,14 @@ class DetectorFactoryTest extends TestCase
         ));
         $em = $sl->get('EventManager');
 
-        $strategy = $this->getMock('SlmLocale\Strategy\StrategyInterface', array('attach', 'detach'));
+        $strategy = $this->getMock('MQLocale\Strategy\StrategyInterface', array('attach', 'detach'));
         $strategy->expects($this->once())
                  ->method('attach')
                  ->with($em, 100);
-        $plugins = $sl->get('SlmLocale\Strategy\StrategyPluginManager');
+        $plugins = $sl->get('MQLocale\Strategy\StrategyPluginManager');
         $plugins->setService('TestStrategy', $strategy);
 
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
     }
 
     public function testStrategyCanBeInstantiatedWithOptions()
@@ -179,26 +179,26 @@ class DetectorFactoryTest extends TestCase
                 array('name' => 'TestStrategy', 'options' => 'Foo')
             ),
         ));
-        $strategy = $this->getMock('SlmLocale\Strategy\StrategyInterface', array('attach', 'detach', 'setOptions'));
+        $strategy = $this->getMock('MQLocale\Strategy\StrategyInterface', array('attach', 'detach', 'setOptions'));
         $strategy->expects($this->once())
                  ->method('setOptions')
                  ->with('Foo');
-        $plugins = $sl->get('SlmLocale\Strategy\StrategyPluginManager');
+        $plugins = $sl->get('MQLocale\Strategy\StrategyPluginManager');
         $plugins->setService('TestStrategy', $strategy);
 
-        $detector = $sl->get('SlmLocale\Locale\Detector');
+        $detector = $sl->get('MQLocale\Locale\Detector');
     }
 
     public function getServiceLocator(array $config = array())
     {
         $config = array(
-            'slm_locale' => $config + array(
+            'mq_locale' => $config + array(
                 'strategies' => array()
             ),
         );
         $serviceLocator = new ServiceManager;
-        $serviceLocator->setFactory('SlmLocale\Locale\Detector', 'SlmLocale\Service\DetectorFactory');
-        $serviceLocator->setInvokableClass('SlmLocale\Strategy\StrategyPluginManager', 'SlmLocale\Strategy\StrategyPluginManager');
+        $serviceLocator->setFactory('MQLocale\Locale\Detector', 'MQLocale\Service\DetectorFactory');
+        $serviceLocator->setInvokableClass('MQLocale\Strategy\StrategyPluginManager', 'MQLocale\Strategy\StrategyPluginManager');
         $serviceLocator->setService('EventManager', new EventManager);
         $serviceLocator->setService('config', $config);
 

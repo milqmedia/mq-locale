@@ -76,24 +76,6 @@ class Module implements
         $detector = $sm->get('SlmLocale\Locale\Detector');
         $result   = $detector->detect($app->getRequest(), $app->getResponse());
 
-        if ($result instanceof ResponseInterface) {
-            /**
-             * When the detector returns a response, a strategy has updated the response
-             * to reflect the found locale.
-             *
-             * To redirect the user to this new URI, we short-circuit the route event. There
-             * is no option to short-circuit the bootstrap event, so we attach a listener to
-             * the route and let the application finish the bootstrap first.
-             *
-             * The listener is attached at PHP_INT_MAX to return the response as early as
-             * possible.
-             */
-            $em = $app->getEventManager();
-            $em->attach(MvcEvent::EVENT_ROUTE, function($e) use ($result) {
-                return $result;
-            }, PHP_INT_MAX);
-        }
-
         Locale::setDefault($result);
     }
 }

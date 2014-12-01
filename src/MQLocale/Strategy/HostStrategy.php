@@ -38,10 +38,10 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Strategy;
 
-use SlmLocale\LocaleEvent;
-use SlmLocale\Strategy\Exception\InvalidArgumentException;
+use MQLocale\LocaleEvent;
+use MQLocale\Strategy\Exception\InvalidArgumentException;
 use Zend\Uri\Uri;
 
 class HostStrategy extends AbstractStrategy

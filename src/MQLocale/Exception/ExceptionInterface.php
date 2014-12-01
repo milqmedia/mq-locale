@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2012-2013 Jurian Sluiman.
+ * Copyright (c) 2013 Jurian Sluiman.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,18 +33,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @author      Jurian Sluiman <jurian@juriansluiman.nl>
- * @copyright   2012-2013 Jurian Sluiman.
+ * @copyright   2013 Jurian Sluiman.
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Service\Exception;
+namespace MQLocale\Exception;
 
-use RuntimeException;
-use SlmLocale\Exception\ExceptionInterface;
-
-class StrategyConfigurationException
-    extends RuntimeException
-    implements ExceptionInterface
+interface ExceptionInterface
 {
+
 }

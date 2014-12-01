@@ -37,9 +37,9 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
-namespace SlmLocale\View\Helper;
+namespace MQLocale\View\Helper;
 
-use SlmLocale\Locale\Detector;
+use MQLocale\Locale\Detector;
 use Zend\Http\Request;
 use Zend\Mvc\Router\Http\RouteMatch;
 use Zend\View\Helper\AbstractHelper;

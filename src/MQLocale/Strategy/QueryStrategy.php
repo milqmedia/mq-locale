@@ -38,9 +38,9 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Strategy;
 
-use SlmLocale\LocaleEvent;
+use MQLocale\LocaleEvent;
 
 class QueryStrategy extends AbstractStrategy
 {

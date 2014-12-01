@@ -38,69 +38,25 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Service;
+namespace MQLocale\Service;
 
-use SlmLocale\Locale\Detector;
+use MQLocale\View\Helper\LocaleMenu;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class DetectorFactory implements FactoryInterface
+class LocaleMenuViewHelperFactory implements FactoryInterface
 {
     /**
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return Detector
+     * @return LocaleMenu
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('config');
-        $config = $config['slm_locale'];
+        $detector = $serviceLocator->getServiceLocator()->get('MQLocale\Locale\Detector');
 
-        $detector = new Detector;
-        $events   = $serviceLocator->get('EventManager');
-        $detector->setEventManager($events);
+        $helper = new LocaleMenu;
+        $helper->setDetector($detector);
 
-        $this->addStrategies($detector, $config['strategies'], $serviceLocator);
-
-        if (array_key_exists('default', $config)) {
-            $detector->setDefault($config['default']);
-        }
-
-        if (array_key_exists('supported', $config)) {
-            $detector->setSupported($config['supported']);
-        }
-
-        return $detector;
-    }
-
-    protected function addStrategies(Detector $detector, array $strategies, ServiceLocatorInterface $serviceLocator)
-    {
-        $plugins = $serviceLocator->get('SlmLocale\Strategy\StrategyPluginManager');
-
-        foreach ($strategies as $strategy) {
-            if (is_string($strategy)) {
-                $class = $plugins->get($strategy);
-                $detector->addStrategy($class);
-
-            } elseif (is_array($strategy)) {
-                $name     = $strategy['name'];
-                $class    = $plugins->get($name);
-
-                if (array_key_exists('options', $strategy) && method_exists($class, 'setOptions')) {
-                    $class->setOptions($strategy['options']);
-                }
-
-                $priority = 1;
-                if (array_key_exists('priority', $strategy)) {
-                    $priority = $strategy['priority'];
-                }
-
-                $detector->addStrategy($class, $priority);
-
-            } else {
-                throw new Exception\StrategyConfigurationException(
-                    'Strategy configuration must be a string or an array'
-                );
-            }
-        }
+        return $helper;
     }
 }

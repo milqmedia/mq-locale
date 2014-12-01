@@ -38,16 +38,16 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Strategy;
 
-use SlmLocale\LocaleEvent;
-use SlmLocale\Strategy\Exception\InvalidArgumentException;
+use MQLocale\LocaleEvent;
+use MQLocale\Strategy\Exception\InvalidArgumentException;
 use Zend\Http\Header\Cookie;
 use Zend\Http\Header\SetCookie;
 
 class CookieStrategy extends AbstractStrategy
 {
-    const COOKIE_NAME = 'slm_locale';
+    const COOKIE_NAME = 'mq_locale';
 
     /**
      * The name of the cookie.

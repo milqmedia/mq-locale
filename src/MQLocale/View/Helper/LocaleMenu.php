@@ -38,10 +38,10 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\View\Helper;
+namespace MQLocale\View\Helper;
 
 use Locale;
-use SlmLocale\Locale\Detector;
+use MQLocale\Locale\Detector;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Exception\RuntimeException;
 

@@ -38,10 +38,43 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale\Strategy;
 
-use Zend\EventManager\ListenerAggregateInterface;
+use Zend\ServiceManager\AbstractPluginManager;
 
-interface StrategyInterface extends ListenerAggregateInterface
+class StrategyPluginManager extends AbstractPluginManager
 {
+    /**
+     * {@inheritDocs}
+     */
+    protected $invokableClasses = array(
+        'cookie'         => 'MQLocale\Strategy\CookieStrategy',
+        'host'           => 'MQLocale\Strategy\HostStrategy',
+        'acceptlanguage' => 'MQLocale\Strategy\HttpAcceptLanguageStrategy',
+        'query'          => 'MQLocale\Strategy\QueryStrategy',
+        'uripath'        => 'MQLocale\Strategy\UriPathStrategy',
+    );
+
+    /**
+     * Validate the plugin
+     *
+     * Checks that the helper loaded is an instance of StrategyInterface.
+     *
+     * @param  mixed                            $plugin
+     * @return void
+     * @throws Exception\InvalidStrategyException if invalid
+     */
+    public function validatePlugin($plugin)
+    {
+        if ($plugin instanceof StrategyInterface) {
+            // we're okay
+            return;
+        }
+
+        throw new Exception\InvalidStrategyException(sprintf(
+            'Plugin of type %s is invalid; must implement %s\StrategyInterface',
+            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
+            __NAMESPACE__
+        ));
+    }
 }

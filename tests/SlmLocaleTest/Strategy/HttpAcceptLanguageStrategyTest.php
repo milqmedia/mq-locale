@@ -37,12 +37,12 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
-namespace SlmLocaleTest\Locale;
+namespace MQLocaleTest\Locale;
 
 use PHPUnit_Framework_TestCase as TestCase;
 
-use SlmLocale\Strategy\HttpAcceptLanguageStrategy;
-use SlmLocale\LocaleEvent;
+use MQLocale\Strategy\HttpAcceptLanguageStrategy;
+use MQLocale\LocaleEvent;
 
 use Zend\Http\Header\AcceptLanguage;
 use Zend\Http\Request as HttpRequest;

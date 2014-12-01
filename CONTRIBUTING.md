@@ -1,7 +1,7 @@
 Contributing
 ===
 
-Thank you for contributing to SlmLocale! If you would like to add, update or remove something from SlmLocale, please take notice of the following rules:
+Thank you for contributing to MQLocale! If you would like to add, update or remove something from MQLocale, please take notice of the following rules:
 
  1. Be PSR-0 compliant with file loading
  2. Use PSR-1, PSR-2 and eventually the Zend Framework 2 coding styles to write your code
@@ -12,6 +12,6 @@ Thank you for contributing to SlmLocale! If you would like to add, update or rem
 Process of Pull Requests
 ---
 
-Currently, SlmLocale is maintained by Jurian Sluiman (@juriansluiman). If you want to become a main contributor, you can request push access to this repository to merge code yourself.
+Currently, MQLocale is maintained by Jurian Sluiman (@juriansluiman). If you want to become a main contributor, you can request push access to this repository to merge code yourself.
 
-If you are willing to contribute a substantial new part to SlmLocale, please discuss this first via the [Github issues](http://github.com/juriansluiman/SlmLocale/issues). You might be unaware of a different initiative with similar goals and that will save you quite some development time.
+If you are willing to contribute a substantial new part to MQLocale, please discuss this first via the [Github issues](http://github.com/juriansluiman/MQLocale/issues). You might be unaware of a different initiative with similar goals and that will save you quite some development time.

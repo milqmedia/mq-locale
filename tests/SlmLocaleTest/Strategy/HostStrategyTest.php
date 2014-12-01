@@ -1,10 +1,10 @@
 <?php
 
-namespace SlmLocaleTest\Strategy;
+namespace MQLocaleTest\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use SlmLocale\LocaleEvent;
-use SlmLocale\Strategy\HostStrategy;
+use MQLocale\LocaleEvent;
+use MQLocale\Strategy\HostStrategy;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Stdlib\Parameters;
 use Zend\Uri\Uri;
@@ -31,7 +31,7 @@ class HostStrategyTest extends TestCase
     }
 
     /**
-     * @expectedException \SlmLocale\Strategy\Exception\InvalidArgumentException
+     * @expectedException \MQLocale\Strategy\Exception\InvalidArgumentException
      */
     public function testDetectWithoutDomainThrowsInvalidArgumentException()
     {

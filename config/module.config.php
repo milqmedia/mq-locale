@@ -39,27 +39,27 @@
  */
 
 return array(
-    'slm_locale' => array(
+    'mq_locale' => array(
         'strategies' => array()
     ),
 
     'service_manager' => array(
         'invokables' => array(
-            'SlmLocale\Strategy\StrategyPluginManager' => 'SlmLocale\Strategy\StrategyPluginManager',
+            'MQLocale\Strategy\StrategyPluginManager' => 'MQLocale\Strategy\StrategyPluginManager',
         ),
         'factories'  => array(
-            'SlmLocale\Locale\Detector' => 'SlmLocale\Service\DetectorFactory',
+            'MQLocale\Locale\Detector' => 'MQLocale\Service\DetectorFactory',
         ),
     ),
 
     'view_helpers' => array(
         'aliases' => array(
-            'localeUrl'  => 'SlmLocale\View\Helper\LocaleUrl',
-            'localeMenu' => 'SlmLocale\View\Helper\LocaleMenu',
+            'localeUrl'  => 'MQLocale\View\Helper\LocaleUrl',
+            'localeMenu' => 'MQLocale\View\Helper\LocaleMenu',
         ),
         'factories' => array(
-            'SlmLocale\View\Helper\LocaleUrl'  => 'SlmLocale\Service\LocaleUrlViewHelperFactory',
-            'SlmLocale\View\Helper\LocaleMenu' => 'SlmLocale\Service\LocaleMenuViewHelperFactory',
+            'MQLocale\View\Helper\LocaleUrl'  => 'MQLocale\Service\LocaleUrlViewHelperFactory',
+            'MQLocale\View\Helper\LocaleMenu' => 'MQLocale\Service\LocaleMenuViewHelperFactory',
         ),
     ),
 );

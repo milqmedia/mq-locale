@@ -38,43 +38,98 @@
  * @link        http://juriansluiman.nl
  */
 
-namespace SlmLocale\Strategy;
+namespace MQLocale;
 
-use Zend\ServiceManager\AbstractPluginManager;
+use Zend\EventManager\Event;
+use Zend\Stdlib\RequestInterface;
+use Zend\Stdlib\ResponseInterface;
+use Zend\Uri\Uri;
 
-class StrategyPluginManager extends AbstractPluginManager
+class LocaleEvent extends Event
 {
-    /**
-     * {@inheritDocs}
-     */
-    protected $invokableClasses = array(
-        'cookie'         => 'SlmLocale\Strategy\CookieStrategy',
-        'host'           => 'SlmLocale\Strategy\HostStrategy',
-        'acceptlanguage' => 'SlmLocale\Strategy\HttpAcceptLanguageStrategy',
-        'query'          => 'SlmLocale\Strategy\QueryStrategy',
-        'uripath'        => 'SlmLocale\Strategy\UriPathStrategy',
-    );
+    const EVENT_DETECT   = 'detect';
+    const EVENT_FOUND    = 'found';
+    const EVENT_ASSEMBLE = 'assemble';
 
-    /**
-     * Validate the plugin
-     *
-     * Checks that the helper loaded is an instance of StrategyInterface.
-     *
-     * @param  mixed                            $plugin
-     * @return void
-     * @throws Exception\InvalidStrategyException if invalid
-     */
-    public function validatePlugin($plugin)
+    protected $request;
+    protected $response;
+    protected $supported;
+    protected $locale;
+    protected $uri;
+
+    public function getRequest()
     {
-        if ($plugin instanceof StrategyInterface) {
-            // we're okay
-            return;
-        }
+        return $this->request;
+    }
 
-        throw new Exception\InvalidStrategyException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\StrategyInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
+    public function setRequest(RequestInterface $request)
+    {
+        $this->setParam('request', $request);
+        $this->request = $request;
+        return $this;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function setResponse(ResponseInterface $response)
+    {
+        $this->setParam('response', $response);
+        $this->response = $response;
+        return $this;
+    }
+
+    public function getSupported()
+    {
+        return $this->supported;
+    }
+
+    public function setSupported(array $supported)
+    {
+        $this->setParam('supported', $supported);
+        $this->supported = $supported;
+        return $this;
+    }
+
+    public function hasSupported()
+    {
+        return is_array($this->supported) && count($this->supported);
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    public function setLocale($locale)
+    {
+        $this->setParam('locale', $locale);
+        $this->locale = $locale;
+        return $this;
+    }
+
+    /**
+     * Get uri for assemble event
+     *
+     * @return Uri
+     */
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    /**
+     * Set uri for assemble event
+     *
+     * @param  Uri $uri
+     * @return self
+     */
+    public function setUri(Uri $uri)
+    {
+        $this->setParam('uri', $uri);
+        $this->uri = $uri;
+        return $this;
     }
 }

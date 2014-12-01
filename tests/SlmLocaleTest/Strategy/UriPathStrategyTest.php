@@ -37,11 +37,11 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
-namespace SlmLocaleTest\Locale;
+namespace MQLocaleTest\Locale;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use SlmLocale\LocaleEvent;
-use SlmLocale\Strategy\UriPathStrategy;
+use MQLocale\LocaleEvent;
+use MQLocale\Strategy\UriPathStrategy;
 use Zend\Console\Response as ConsoleResponse;
 use Zend\Console\Request as ConsoleRequest;
 use Zend\Http\PhpEnvironment\Response as HttpResponse;
@@ -354,7 +354,7 @@ class UriPathStrategyTest extends TestCase
         $sl = new ServiceManager;
         $sl->setService('router', $console ? new ConsoleRouter : new HttpRouter);
 
-        $pluginManager = $this->getMock('SlmLocale\Strategy\StrategyPluginManager', array(
+        $pluginManager = $this->getMock('MQLocale\Strategy\StrategyPluginManager', array(
             'getServiceLocator'
         ));
         $pluginManager->expects($this->any())

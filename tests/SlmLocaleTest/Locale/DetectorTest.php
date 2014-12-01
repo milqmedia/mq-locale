@@ -37,11 +37,11 @@
  * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link        http://juriansluiman.nl
  */
-namespace SlmLocaleTest\Locale;
+namespace MQLocaleTest\Locale;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use SlmLocale\LocaleEvent;
-use SlmLocale\Locale\Detector;
+use MQLocale\LocaleEvent;
+use MQLocale\Locale\Detector;
 
 use Zend\Stdlib\Request;
 use Zend\Stdlib\Response;
@@ -55,7 +55,7 @@ class DetectorTest extends TestCase
 
         $self = $this;
         $this->setEventManager($detector, LocaleEvent::EVENT_DETECT, function($e) use ($self) {
-            $self->assertInstanceOf('SlmLocale\LocaleEvent', $e);
+            $self->assertInstanceOf('MQLocale\LocaleEvent', $e);
         });
 
         $detector->detect(new Request, new Response);
@@ -169,7 +169,7 @@ class DetectorTest extends TestCase
     public function testStrategyAttachesToEventManager()
     {
         $detector = new Detector;
-        $strategy = $this->getMock('SlmLocale\Strategy\StrategyInterface');
+        $strategy = $this->getMock('MQLocale\Strategy\StrategyInterface');
 
         $events = $this->getMock('Zend\EventManager\EventManager', array('attachAggregate'));
         $events->expects($this->once())
@@ -185,12 +185,12 @@ class DetectorTest extends TestCase
         $detector  = new Detector;
         $this->setEventManager($detector);
 
-        $strategy1 = $this->getMock('SlmLocale\Strategy\AbstractStrategy', array('detect'));
+        $strategy1 = $this->getMock('MQLocale\Strategy\AbstractStrategy', array('detect'));
         $strategy1->expects($this->once())
                   ->method('detect')
                   ->will($this->returnValue('Foo'));
 
-        $strategy2 = $this->getMock('SlmLocale\Strategy\AbstractStrategy', array('detect'));
+        $strategy2 = $this->getMock('MQLocale\Strategy\AbstractStrategy', array('detect'));
         $strategy2->expects($this->never())
                   ->method('detect');
 
@@ -207,7 +207,7 @@ class DetectorTest extends TestCase
 
         $self = $this;
         $this->setEventManager($detector, LocaleEvent::EVENT_FOUND, function($e) use ($self) {
-            $self->assertInstanceOf('SlmLocale\LocaleEvent', $e);
+            $self->assertInstanceOf('MQLocale\LocaleEvent', $e);
         });
 
         $detector->detect(new Request, new Response);

@@ -1,6 +1,6 @@
 <?php
 /**
- * SlmLocale Configuration
+ * MQLocale Configuration
  *
  * If you have a ./config/autoload/ directory set up for your project, you can
  * drop this config file in it and change the values as you wish.
@@ -34,7 +34,7 @@ $settings = array(
     //'strategies' => array(),
 
     /**
-     * End of SlmLocale configuration
+     * End of MQLocale configuration
      */
 );
 
@@ -42,5 +42,5 @@ $settings = array(
  * You do not need to edit below this line
  */
 return array(
-    'slm_locale' => $settings
+    'mq_locale' => $settings
 );
