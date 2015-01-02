@@ -12,6 +12,16 @@
 return array(
     'mq_locale' => array(
     ),
+    'view_helpers' => array(  
+        'invokables' => array(  
+            'language' => 'MQLocale\View\Helper\DefaultLanguage',
+        ),
+    ),
+    'controller_plugins' => array(
+        'invokables' => array(
+            'language' => 'MQLocale\Controller\Plugin\DefaultLanguage',
+		),
+    ),
     'service_manager' => array(
 	    'invokables' => array(
             'MQLocale\Strategy\StrategyManager' => 'MQLocale\Strategy\StrategyManager',
