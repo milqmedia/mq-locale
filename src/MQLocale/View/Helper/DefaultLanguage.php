@@ -20,7 +20,7 @@ class DefaultLanguage extends AbstractHelper implements ServiceLocatorAwareInter
 	public function parseDefaultLanguage() {
 		
 		$locale = str_replace('_', '-', Locale::getDefault());
-		
+
 		$config = $this->getServiceLocator()->getServiceLocator()->get('Config');
 		
 		if(isset($config['mq_locale']['aliases'][$locale])) {
