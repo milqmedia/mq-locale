@@ -66,4 +66,5 @@ class DefaultLanguage extends AbstractHelper implements ServiceLocatorAwareInter
     {  
         return $this->serviceLocator;  
     } 
+    
 }
