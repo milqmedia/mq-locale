@@ -34,6 +34,17 @@ class DefaultLanguage extends AbstractHelper implements ServiceLocatorAwareInter
 		return $locale;
 	}
 	
+	public function getCurrentLanguage() {
+		
+		$sl = $this->getServiceLocator()->getServiceLocator();
+		$em = $sl->get('ApplicationEntityManager');
+		
+		$currentLanguageIso = $this->parseDefaultLanguage();
+		$language = $em->getRepository('Application\Entity\Language')->findOneBy(array('isoCode' => $currentLanguageIso));
+			
+		return $language;
+	}
+	
     /** 
      * Set the service locator. 
      * 
