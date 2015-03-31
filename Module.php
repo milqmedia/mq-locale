@@ -41,6 +41,9 @@ class Module implements
 
     public function onBootstrap(EventInterface $e)
     {
+	    if(php_sapi_name() === 'cli')
+	    	return;
+	    
         $app = $e->getApplication();
         $sm  = $app->getServiceManager();
 
