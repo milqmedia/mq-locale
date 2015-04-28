@@ -28,7 +28,7 @@ class DefaultLanguage extends AbstractHelper implements ServiceLocatorAwareInter
 		} else if($found = array_search($locale, $config['mq_locale']['aliases'])) {
 			return $found;
 		}
-		
+
 		$locale = array_search($config['mq_locale']['default'], $config['mq_locale']['aliases']);
 		
 		return $locale;
@@ -43,6 +43,11 @@ class DefaultLanguage extends AbstractHelper implements ServiceLocatorAwareInter
 		$language = $em->getRepository('Application\Entity\Language')->findOneBy(array('isoCode' => $currentLanguageIso));
 			
 		return $language;
+	}
+	
+	public function getLocale() {
+		
+		return Locale::getDefault();
 	}
 	
     /** 
