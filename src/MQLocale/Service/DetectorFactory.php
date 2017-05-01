@@ -1,10 +1,8 @@
 <?php
 /**
  * MQLocale
- * Copyright (c) 2014 Milq Media.
  *
  * @author      Johan Kuijt <johan@milq.nl>
- * @copyright   2014 Milq Media.
  * @license     http://www.opensource.org/licenses/mit-license.php  MIT License
  * @link        http://milq.nl
  */
@@ -22,9 +20,9 @@ class DetectorFactory implements FactoryInterface
      * @param  ServiceLocatorInterface $serviceLocator
      * @return Detector
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(\Interop\Container\ContainerInterface $container, $requestedName, array $options = NULL)
     {
-        $config 		= $serviceLocator->get('config');
+        $config 		= $container->get('config');
         $config 		= $config['mq_locale'];
         $detectorConfig = new DetectorConfig;
         
@@ -45,5 +43,10 @@ class DetectorFactory implements FactoryInterface
         }
         
         return new Detector($detectorConfig);
+    }
+ 
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, 'Detector');
     }
 }
