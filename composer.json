@@ -1,6 +1,6 @@
 {
     "name": "milqmedia/mq-locale",
-    "description": "Automatic detection of locales for Zend Framework 2",
+    "description": "Automatic detection of locales for Zend Framework 3",
     "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
@@ -22,20 +22,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3.",
-        "ext-intl": "*",
-        "zendframework/zend-eventmanager": "~2.1",
-        "zendframework/zend-http": "~2.1",
-        "zendframework/zend-servicemanager": "~2.1",
-        "zendframework/zend-stdlib": "~2.1"
-    },
-    "require-dev": {
-        "zendframework/zend-console": "~2.1",
-        "zendframework/zend-mvc": "~2.1",
-        "phpunit/phpunit": "4.2.*"
-    },
-    "suggest": {
-        "zendframework/zend-mvc": "For using the router in the UriPath strategy"
+        "php": ">=7.0",
+        "ext-intl": "*"
     },
     "autoload": {
         "psr-0": {
